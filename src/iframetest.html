@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		html,
+		body {
+			height: 100%;
+		}
+
+		html {
+			display: table;
+			margin: auto;
+		}
+
+		body {
+			display: table-cell;
+			vertical-align: middle;
+		}
+
+		.flex-container {
+			display: flex;
+			justify-content: center;
+			background-color: DodgerBlue;
+			flex-direction: column;
+		}
+
+		.flex-container>div {
+			background-color: #f1f1f1;
+			margin: 10px;
+			padding: 0.5em;
+			text-align: center;
+			line-height: 75px;
+			font-size: 30px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="flex-container">
+		<div id="message">Hello Mr. Anderson</div>
+		<div><a id="link" href="https://google.com" target="_blank" rel="noopener noreferrer">Click me</a></div>
+		<div><button id="btn">Message from iframe</button></div>
+	</div>
+
+	<script>
+		let anchor = document.getElementById('link');
+		let hrefAttribute = anchor.getAttribute('href');
+		anchor.addEventListener('click', function () {
+			parent.postMessage(hrefAttribute, "*");
+		})
+		document.getElementById('btn').addEventListener('click', function () {
+			parent.postMessage("Hello!", "*");
+		})
+	</script>
+</body>
+
+</html>
